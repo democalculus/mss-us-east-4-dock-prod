@@ -56,12 +56,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mss-svc-web
+  name: mss-svc-dock 
   namespace: mss-java-prod
 spec:
   type: LoadBalancer
   selector:
-    app: mss-svc-web
+    app: mss-svc-docker
   ports:
   - port: 80
     targetPort: 8080

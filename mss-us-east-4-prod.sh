@@ -3,7 +3,7 @@
 #k8s-deployment.sh
 mss_pod_app="mss-pod-docker"
 mss_con_app="mss-con-docker"
-serviceName="mss-svc-docker"
+serviceName="mss-svc-dock"
 #imageName="eagunuworld/numeric-app:docker pull eagunuworld/numeric-app:ddba18bd401f3eeb0ee097eb56dd8f76d1953e0b"
 imageName="eagunuworld/mss-us-east-2-web-prod:v$BUILD_NUMBER"
 #applicationURL="http://devsecops-demo.eastus.cloudapp.azure.com/"
