@@ -33,7 +33,7 @@ pipeline {
     // This can be http or https
     NEXUS_PROTOCOL = "http"
     // Where your Nexus is running
-    NEXUS_URL = "18.223.168.83:8081"
+    NEXUS_URL = "3.17.138.131:8081"
     // Repository where we will upload the artifact
     NEXUS_REPOSITORY = "mss-us-east-4-docker-prod"
     // Jenkins credential id to authenticate to Nexus OSS
@@ -52,7 +52,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/mss-us-east-2-web-prod']], extensions: [], userRemoteConfigs: [[credentialsId: 'democalculus-github-login-creds', url: 'https://github.com/democalculus/mss-us-east-2-web-prod.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/mss-us-east-2-web-prod']], extensions: [], userRemoteConfigs: [[credentialsId: 'democalculus-github-login-creds', url: 'https://github.com/democalculus/mss-us-east-4-dock-prod.git']]])
             }
         }
 
@@ -154,11 +154,11 @@ pipeline {
            }
          }
 
-    stage('mss-us-east-2-prod Deployment') {
+    stage('mss-us-east-4-prod Deployment') {
             steps {
               parallel(
                 "Deployment": {
-                     sh 'bash mss-us-east-2-prod.sh'
+                     sh 'bash mss-us-east-4-prod.sh'
                     },
                     "Rollout Status": {
                       sh 'bash mss-us-east-2-rollout-prod.sh'
@@ -169,7 +169,7 @@ pipeline {
 
   // stage ('Deploying To EKS') {
   //      steps {
-  //      sh 'kubectl apply -f mss-us-east-2-prod.yml'
+  //      sh 'kubectl apply -f mss-us-east-4-prod.yml'
   //      }
   //     }
 

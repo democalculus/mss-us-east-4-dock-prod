@@ -14,16 +14,16 @@ echo $mss_pod_app
 echo $mss_con_app
 echo $serviceName
 echo $imageName
-#kubectl create ns mss-us-east-0-prod
-kubectl -n mss-us-east-0-prod get deploy ${mss_pod_app} > /dev/null
+#kubectl create ns mss-java-prod
+kubectl -n mss-java-prod get deploy ${mss_pod_app} > /dev/null
 
 if [[ $? -ne 0 ]]; then
     echo "mss pod Dployment ${mss_pod_app} doesn't exist,Appying kubectl commands"
-    kubectl -n mss-us-east-0-prod apply -f mss-us-east-2-prod.yml
+    kubectl -n mss-java-prod apply -f mss-us-east-4-prod.yml
 else
     echo "mss pod Dployment ${mss_pod_app} exist"
     echo "Here is the image: ${imageName}"
-    #kubectl -n mss-us-east-0-prod set image deploy ${mss_pod_app} ${mss_con_app}=${imageName} --record=true
+    #kubectl -n mss-java-prod set image deploy ${mss_pod_app} ${mss_con_app}=${imageName} --record=true
 fi
 #!/bin/bash
 
