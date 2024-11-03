@@ -150,7 +150,7 @@ pipeline {
 
     stage('Cleaning  up docker Images') {
         steps{
-           sh 'docker rmi  $(docker images -q)'
+           sh 'docker rmi  ${imageVersion}'
            }
          }
 
