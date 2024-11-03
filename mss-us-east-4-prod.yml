@@ -5,7 +5,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mss-pod-docker
-  namespace: mss-us-east-0-prod
+  namespace: mss-java-prod
 spec:
   replicas: 2
   selector:
@@ -34,7 +34,7 @@ spec:
               values:
               - mpm
       containers:
-      - name: mss-con-docker 
+      - name: mss-con-docker
         image: image_version_update
         ports:
         - containerPort: 8080
@@ -57,7 +57,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mss-svc-web
-  namespace: mss-us-east-0-prod
+  namespace: mss-java-prod
 spec:
   type: LoadBalancer
   selector:
