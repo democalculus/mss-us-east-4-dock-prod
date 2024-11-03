@@ -161,7 +161,7 @@ pipeline {
                      sh 'bash mss-us-east-4-prod.sh'
                     },
                     "Rollout Status": {
-                      sh 'bash mss-us-east-2-rollout-prod.sh'
+                      sh 'bash mss-us-east-4-rollout-prod.sh'
                         }
                       )
                     }
