@@ -22,12 +22,12 @@ pipeline {
     BUILD_NUMBER = "${env.BUILD_ID}"
     eagunu_pwd = 'eagunuworld_docker_hub_password'
     //eagunu docker registry repository
-    registry = "eagunuworld/mss-us-east-4-docker-prod"
+    registry = "eagunuworld/argocd-java-web-application"
     //eagunu dockerhub registry
     registryCredential = 'eagunuworld-docker-username-and-pwd'
     dockerImage = ''
     //latest_version_update
-    imageVersion = "eagunuworld/mss-us-east-4-docker-prod:v$BUILD_NUMBER"
+    imageVersion = "eagunuworld/argocd-java-web-application:v$BUILD_NUMBER"
     // This can be nexus3 or nexus2
     NEXUS_VERSION = "nexus3"
     // This can be http or https
@@ -35,7 +35,7 @@ pipeline {
     // Where your Nexus is running
     NEXUS_URL = "3.143.172.151:8081"
     // Repository where we will upload the artifact
-    NEXUS_REPOSITORY = "mss-us-east-4-docker-prod"
+    NEXUS_REPOSITORY = "argocd-java-web-application"
     // Jenkins credential id to authenticate to Nexus OSS
     NEXUS_CREDENTIAL_ID = "nexus-username-password-creds-demoshool"
     //ARTIFACT_VERSION = "${BUILD_NUMBER}"
@@ -154,14 +154,14 @@ pipeline {
            }
          }
 
-    stage('mss-us-east-4-prod Deployment') {
+    stage('java_web_app_execute Deployment') {
             steps {
               parallel(
                 "Deployment": {
-                     sh 'bash mss-us-east-4-prod.sh'
+                     sh 'bash java_web_app_execute.sh'
                     },
                     "Rollout Status": {
-                      sh 'bash mss-us-east-4-rollout-prod.sh'
+                      sh 'bash java_web_rollout.sh'
                         }
                       )
                     }

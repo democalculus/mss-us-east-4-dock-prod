@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #k8s-deployment.sh
-mss_pod_app="mss-pod-docker"
-mss_con_app="mss-con-docker"
-serviceName="mss-svc-dock"
+mss_pod_app="mss-java-pod"
+mss_con_app="mss-java-con"
+serviceName="mss-java-svc"
 #imageName="eagunuworld/numeric-app:docker pull eagunuworld/numeric-app:ddba18bd401f3eeb0ee097eb56dd8f76d1953e0b"
-imageName="eagunuworld/mss-us-east-2-web-prod:v$BUILD_NUMBER"
+imageName="eagunuworld/argocd-java-web-application:v$BUILD_NUMBER"
 #applicationURL="http://devsecops-demo.eastus.cloudapp.azure.com/"
 #applicationURI="/increment/99"
 
@@ -19,10 +19,10 @@ kubectl -n mss-java-prod get deploy ${mss_pod_app} > /dev/null
 
 if [[ $? -ne 0 ]]; then
     echo "mss pod Dployment ${mss_pod_app} doesn't exist,Appying kubectl commands"
-    kubectl -n mss-java-prod apply -f mss-us-east-4-prod.yml
+    kubectl -n ibm-ucd apply -f mss-us-east-4-prod.yml
 else
   echo "RollBack Since Latest Deployment Failed"
- kubectl -n mss-db-prod rollout undo deploy ${mss_pod_app}
+ kubectl -n ibm-ucd rollout undo deploy ${mss_pod_app}
  echo "Deployment ${mss_pod_app} Rollout is Success"
     #kubectl -n mss-java-prod set image deploy ${mss_pod_app} ${mss_con_app}=${imageName} --record=true
 fi

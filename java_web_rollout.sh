@@ -1,6 +1,6 @@
 #!/bin/bash
-
-mss_pod_app="mss-pod-docker"
+mss_pod_app="mss-java-pod"
+imageName="eagunuworld/argocd-java-web-application:v$BUILD_NUMBER"
 
 sleep 20s
 
