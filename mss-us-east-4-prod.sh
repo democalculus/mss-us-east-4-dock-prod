@@ -21,8 +21,9 @@ if [[ $? -ne 0 ]]; then
     echo "mss pod Dployment ${mss_pod_app} doesn't exist,Appying kubectl commands"
     kubectl -n mss-java-prod apply -f mss-us-east-4-prod.yml
 else
-    echo "mss pod Dployment ${mss_pod_app} exist"
-    echo "Here is the image: ${imageName}"
+  echo "RollBack Since Latest Deployment Failed"
+ kubectl -n mss-db-prod rollout undo deploy ${mss_pod_app}
+ echo "Deployment ${mss_pod_app} Rollout is Success"
     #kubectl -n mss-java-prod set image deploy ${mss_pod_app} ${mss_con_app}=${imageName} --record=true
 fi
 #!/bin/bash

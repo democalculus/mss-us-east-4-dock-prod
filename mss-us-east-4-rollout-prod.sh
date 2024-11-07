@@ -9,9 +9,8 @@ then
 	echo "Deployment ${mss_pod_app} was successful"
     exit 0;
 else
-	echo "RollBack Since Latest Deployment Failed"
-	kubectl -n mss-java-prod rollout undo deploy ${mss_pod_app}
-	echo "Deployment ${mss_pod_app} Rollout is Success"
+	echo "mss pod Dployment ${mss_pod_app} exist"
+	echo "Here is the image: ${imageName}"
 fi
 
 #
