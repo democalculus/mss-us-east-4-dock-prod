@@ -3,7 +3,7 @@
 
 pipeline {
 
-  agent { label 'eagunu-demo-slave' }
+  agent { label 'eagunu-slave-agent' }
 
   options {
        buildDiscarder logRotator(
@@ -33,7 +33,7 @@ pipeline {
     // This can be http or https
     NEXUS_PROTOCOL = "http"
     // Where your Nexus is running
-    NEXUS_URL = "3.139.71.62:8081"
+    NEXUS_URL = "18.220.169.248:8081"
     // Repository where we will upload the artifact
     NEXUS_REPOSITORY = "argocd-java-web-application"
     // Jenkins credential id to authenticate to Nexus OSS
