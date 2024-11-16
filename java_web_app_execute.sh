@@ -15,11 +15,11 @@ echo $mss_con_app
 echo $serviceName
 echo $imageName
 #kubectl create ns mss-java-prod
-kubectl -n mss-java-prod get deploy ${mss_pod_app} > /dev/null
+kubectl -n ibm-ucd get deploy ${mss_pod_app} > /dev/null
 
 if [[ $? -ne 0 ]]; then
     echo "mss pod Dployment ${mss_pod_app} doesn't exist,Appying kubectl commands"
-    kubectl -n ibm-ucd apply -f mss-us-east-4-prod.yml
+    kubectl -n ibm-ucd apply -f java_web_manifestFile.yml
 else
   echo "RollBack Since Latest Deployment Failed"
  kubectl -n ibm-ucd rollout undo deploy ${mss_pod_app}

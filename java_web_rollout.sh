@@ -4,7 +4,7 @@ imageName="eagunuworld/argocd-java-web-application:v$BUILD_NUMBER"
 
 sleep 20s
 
-if [[ $(kubectl -n mss-java-prod get deploy ${mss_pod_app} --timeout 5s) = *"successfully rolled out"* ]];
+if [[ $(kubectl -n ibm-ucd get deploy ${mss_pod_app} --timeout 5s) = *"successfully rolled out"* ]];
 then
 	echo "Deployment ${mss_pod_app} was successful"
     exit 0;
