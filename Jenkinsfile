@@ -22,20 +22,20 @@ pipeline {
     BUILD_NUMBER = "${env.BUILD_ID}"
     eagunu_pwd = 'eagunuworld_docker_hub_password'
     //eagunu docker registry repository
-    registry = "eagunuworld/argocd-java-web-application"
+    registry = "eagunuworld/us-argocd-java-web-application"
     //eagunu dockerhub registry
     registryCredential = 'eagunuworld-docker-username-and-pwd'
     dockerImage = ''
     //latest_version_update
-    imageVersion = "eagunuworld/argocd-java-web-application:v$BUILD_NUMBER"
+    imageVersion = "eagunuworld/us-argocd-java-web-application:v$BUILD_NUMBER"
     // This can be nexus3 or nexus2
     NEXUS_VERSION = "nexus3"
     // This can be http or https
     NEXUS_PROTOCOL = "http"
     // Where your Nexus is running
-    NEXUS_URL = "18.220.169.248:8081"
+    NEXUS_URL = "3.133.146.2:8081"
     // Repository where we will upload the artifact
-    NEXUS_REPOSITORY = "argocd-java-web-application"
+    NEXUS_REPOSITORY = "us-argocd-java-web-application"
     // Jenkins credential id to authenticate to Nexus OSS
     NEXUS_CREDENTIAL_ID = "nexus-username-password-creds-demoshool"
     //ARTIFACT_VERSION = "${BUILD_NUMBER}"
