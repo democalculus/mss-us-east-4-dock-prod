@@ -52,7 +52,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/prod-master']], extensions: [], userRemoteConfigs: [[credentialsId: 'democalculus-github-login-creds', url: 'https://github.com/democalculus/argocd_java_web_app.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/prod-master']], extensions: [], userRemoteConfigs: [[credentialsId: 'democalculus-github-login-creds', url: 'https://github.com/democalculus/us-argocd-java-docker-app.git']]])
             }
         }
 
