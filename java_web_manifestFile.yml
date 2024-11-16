@@ -40,7 +40,7 @@ spec:
               - mpm
       containers:
       - name: mss-java-con
-        image: eagunuworld/mss-us-east-4-docker-prod:v12
+        image: image_version_update
         ports:
         - containerPort: 8080
         # readinessProbe:
