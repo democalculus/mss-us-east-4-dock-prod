@@ -15,7 +15,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: mss-java-pod
+      app: mss-java-svc
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -24,9 +24,9 @@ spec:
   minReadySeconds: 60
   template:
     metadata:
-      name: mss-java-pod
+      name: mss-java-svc
       labels:
-        app: mss-java-pod
+        app: mss-java-svc
     spec:
       affinity:
         nodeAffinity:
@@ -61,12 +61,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mss-svc-dock
+  name: mss-java-svc
   namespace: ibm-ucd
 spec:
   type: ClusterIP
   selector:
-    app: mss-java-pod
+    app: mss-java-svc
   ports:
   - port: 80
     targetPort: 8080
