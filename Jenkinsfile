@@ -52,8 +52,8 @@ pipeline {
   stages {
     stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/prod-master']], extensions: [], userRemoteConfigs: [[credentialsId: 'democalculus-github-login-creds', url: 'https://github.com/democalculus/us-argocd-java-docker-app.git']]])
-            }
+            git branch: 'prod-master', credentialsId: 'democalculus-github-login-creds', url: 'https://github.com/democalculus/us-argocd-java-docker-app.git'
+          }
         }
 
     stage ('Build wep app war file') {
