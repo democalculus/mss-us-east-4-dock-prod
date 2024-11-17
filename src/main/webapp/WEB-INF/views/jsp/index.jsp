@@ -40,8 +40,8 @@
 
 	<div class="row">
 		<div class="col-md-8">
-			<h2>Eghosa Agunu Technologies, Houston, Texas,United States Of America.</h2>
-			<h3>Contact @ +8324387775,+8324387775</h3>
+			<h2>Eghosa Agunu Technologies, I am currenting Testing DevOps lifecyble with Dan.</h2>
+			<h3>Contact @ +8324387775</h3>
 		</div>
 	</div>
 
