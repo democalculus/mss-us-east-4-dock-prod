@@ -429,3 +429,49 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
+
+
+  #Gke cli Troubleshooting mvn-git-kubectl-versions
+pipeline {
+    agent { label 'eagunu-slave-agent' }
+
+  tools {
+      maven 'UI_Maven3..9.9'
+    }
+
+  stages {
+
+    stage('git version') {
+      steps {
+        sh "git version"
+      }
+    }
+
+    stage('maven version') {
+      steps {
+        sh "mvn -v"
+      }
+    }
+
+    stage('Docker version') {
+      steps {
+        sh "docker --version"
+      }
+    }
+
+   stage('kubernetes version') {
+      steps {
+        sh "kubectl get nodes -o wide"
+      }
+    }
+
+    stage('kubernetes version 2') {
+      steps {
+       withKubeConfig([credentialsId: 'us-east-2-prod-eksdemo']) {
+          sh "kubectl get nodes -o wide"
+        }
+      }
+    }
+
+  }
+}
