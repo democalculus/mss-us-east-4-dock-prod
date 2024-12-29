@@ -400,3 +400,32 @@ wget wget https://download.sonatype.com/nexus/3/nexus-3.38.0-01-unix.tar.gz
     1  sudo systemctl enable nexus
     2  sudo systemctl start nexus
     3  sudo systemctl status nexus
+
+
+
+      #Jenkins nodes
+sudo mkdir prod_show_workingDir
+sudo chmod -R 777 prod_show_workingDir
+cd prod_show_workingDir/
+pwd
+
+ssh-keygen
+cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub
+sudo vi ~/.ssh/authorized_keys
+
+
+sudo yum install git -y
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl enable --now docker
+sudo chmod 777 /var/run/docker.sock
+docker images
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl version --client
