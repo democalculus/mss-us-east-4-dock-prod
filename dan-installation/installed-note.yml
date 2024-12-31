@@ -752,3 +752,300 @@ spec:
             name: mss-svc-dock
             port:
               number: 80
+
+
+###########Helm
+/Users/makutaworldmpm/Desktop/eagunu_2024/eagunu_kubernetes/IngressController/helm-packaged/note-pad
+#https://kubernetes.github.io/ingress-nginx/deploy/
+
+# HELM INSTALLATION
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get-helm-3 > get_helm.sh
+chmod 700 get_helm.sh
+./get_helm.sh
+#################JENKINS#####################
+https://artifacthub.io/packages/helm/jenkinsci/jenkins
+
+Using Helm
+######### NO CHANGE MADE RUN AS IT IS this was tested in gke cluster and it works###################
+kubectl create ns monitor
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-nginx ingress-nginx/ingress-nginx --dry-run
+helm install ingress-nginx ingress-nginx/ingress-nginx -n monitor
+
+
+####################################PROMETHEUS HELM INSTALLATION ############################
+#https://artifacthub.io/packages/helm/prometheus-community/prometheus
+kubectl create namespace monitor
+helm repo add prometheus https://prometheus-community.github.io/helm-charts
+helm search repo
+helm search repo prometheus
+helm show values prometheus/prometheus  -n monitoring
+helm show values prometheus/prometheus > prometheus_may_16_22_values.yml
+helm template prometheus44 stable/prometheus
+helm install prom prometheus/prometheus -n monitor
+helm install prometheus44 stable/prometheus  -n monitoring --dry-run
+helm template prometheus44 stable/prometheus -n monitor --set replicas=4
+helm show value https://prometheus-community.github.io/helm-charts > promeu_values.yml
+helm install prometheus44 stable/prometheus
+helm upgrade prometheus44 stable/prometheus -n monitor --set replicas=4
+helm rollback prometheus44  -n monitor
+helm uninstall prometheus44  -n monitor
+helm upgrade --install prometheus44 stable/prometheus -f promethuesValues.yml -n monitoring
+helm ls -n montor
+kubectl get po,svc,sa,clusterrole,cm -n monitor
+kubectl top nodes
+kubectl top po
+kubectl get secret --namespace monitoring grafana44 -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+helm upgrade prometheus44 stable/prometheus -f promethuesValues.yml -n monitoring
+kubectl get configmap -n monitoring
+kubectl get configmap prometheus-server -n monitoring -o yaml
+helm uninstall prometheus44 -n monitoring
+
+#######setting alert rules in prometheus
+kubectl -n monitor exec -it prom-prometheus-server-5cf68bb6cb-xzs58 cat  /etc/config/alerting_rules.yml
+
+##################HELM METRIC WITH MANIFESTS VALIDATION###############################
+#https://artifacthub.io/packages/helm/bitnami/metrics-server
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo ls
+helm search repo bitman
+helm template bitman/metrics-server #show manifest
+helm install releaseName bitman/metrics-server -n monitoring --dry-run #show manifest
+helm show value bitman/metrics-server #show manifest
+helm install myMetric bitman/metrics-server -n monitoring
+helm list -n monitoring
+kubectl get po,svc -n monitoring
+
+###################HELM GRAFANA INSTALLATION###############################
+#https://grafana.com/docs/agent/latest/operator/helm-getting-started/
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install grafana44 stable/grafana -f grafanaValues.yml -n monitoring
+helm ls -n monitoring
+kubectl get po,svc -n monitoring
+helm uninstall grafana44 -n monitoring
+kubectl get configMaps --all-namespace
+helm rollback  metricServer stable/metric-server -n kube-system
+kubectl get secret --namespace monitor grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+http://prom-prometheus-server
+https://grafana.com/grafana/dashboards/
+
+###### CHECK WITH TO DEPLOY BEFORE DEPLOYMENT######################
+#Deploy Person Application with Helm
+mkdir  helm-workShop-pad
+helm create javaApp
+tree javaApp  #To see javaApp in a tree structure
+helm template javaApp #check what to deploy
+helm template myJavaApp --set autoscaling.enable=true
+helm template myJavaApp --set service.type=LoadBalancer --set image.tag=1
+helm install releaseName myJavaApp --set autoscaling.enable=true  --set image.tag=1
+helm show values myJavaApp
+helm install releaseName myJavaApp --set autoscaling.enable=true  --set image.tag=1 --set autoscaling.enable=true
+helm ls
+Kubectl get all
+helm uninstall releaseName
+helm rollback releaseName
+helm rollback releaseName --revison 2
+
+
+HELM INGRESS
+###########
+helm install nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-basic --set controller.replicaCount=2 --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux
+Kuberetes community
+https://devopscube.com/setup-ingress-kubernetes-nginx-controller/
+https://github.com/kubernetes/ingress-nginx/blob/master/deploy/static/provider/cloud/deploy.yaml
+
+
+2.AZURE
+##########
+az group create --name myAKSRG --location centralus
+az group delete --name myAKSRG
+az group list
+az resource list -g myAKSRG --location centralus
+az vm create --resource-group myResourceGroup --name myVM --image win2016datacenter --admin-username azureuser
+az vm open-port --port 80 --resource-group myResourceGroup --name myVM
+
+
+kubectl --namespace ingress-basic get services -o wide -w nginx-ingress-ingress-nginx-controller
+https://docs.microsoft.com/en-us/azure/aks/ingress-static-ip
+
+az aks create -g myRG -n myAKS --node-count 3 --enable-addons monitoring --generate-ssh-keys
+az aks install-cli
+az aks get-credentials -g myRG -n myAKS
+
+
+az group create -n my -l eastus
+az aks create -g myAKSRG -n myAKS --node-count 1 --enable-addons monitoring --generate-ssh-keys
+az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
+az aks delete
+az aks get-credentials -g myAKSRG -n myAKS
+
+ingress4
+https://dzone.com/articles/nginx-ingress-controller-configuration-in-aks
+
+
+
+aws s3 cp s3://kubernetesdecember2020/Adku /Users/agunu2020/Desktop/DevOpsSchool/exam_kubernetes/classwork/aws_record_s3
+aws s3 cp s3://kubernetesdecember2020/AdkubeintroInstallation1.zip /Users/agunu2020/Downloads/kuberShop
+
+
+https://zero-to-jupyterhub.readthedocs.io/en/v0.6/create-k8s-cluster.html
+
+
+       HOW TO INSTALL AZ
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=yum
+
+
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+#helm template webApp --set image.tag=45 --set service.type=LoadBalancer --set service.port=8080 --set autoscaling.enabled=true
+############################################################
+helm lint webApp/
+helm update releaseName chatName
+
+#move helmchart to github
+helm repo add repoName github
+helm repo ls
+helm search repo repoName
+helm  install releaseName repoName/myJavaApp
+####################################################
+helm search repo community/prometheus
+helm template  community/prometheus
+helm pull community/prometheus
+tar -zxf prometheus
+helm show value community/prometheus > prometheusValue.yml
+
+
+
+#######################################################
+##################################################################################
+   MONITORING TOOLS
+What Is Server Monitoring?
+Server monitoring is a way to look into what your servers are doing in real time.
+It can provide you with actionable data, and is most often used for troubleshooting and capacity planning. It’s typically done at three levels:
+#################################
+helm repo add promed https://prometheus-community.github.io/helm-charts
+helm repo update
+#################################################
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+#############################
+
+Network (e.g., traffic, bandwidth, latency).
+Machine (e.g., CPU and memory utilization and storage).
+Application (e.g., rate of user commands, locks, large syncs, commits/submits, etc.).
+
+if server goes down alert should be triggered
+#############################################################
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm search repo | grep "prometheus"
+helm search repo | grep "grafana"
+helm template stable/prometheus >> dummy.yml
+cat dummy.yml
+helm show volumes stable/prometheus
+helm show value agunuHelmRepo/agunuHelmRepo2 >> javawebappvalues.yml
+kubectl create ns monitoring
+kubectl  get all -n monitoring
+
+kubectl get configMaps --all-namespace
+helm rollback  metricServer stable/metric-server -n kube-system
+helm ls -n kube-system
+helm ls -n monitoring
+helm uninstall metricsName -n kube-system
+
+
+helm show value agunuHelmRepo/agunuHelmRepo2 >> javawebappvalues.yml
+helm install javawebapp agunuHelmRepo/agunuHelmRepo2 -f javawebappvalues.yml
+
+helm install prometheus44 stable/prometheus -n monitoring      #default
+
+
+helm template stable/prometheus
+helm template stable/grafana
+
+helm show values stable/prometheus >> promethuesValues.yml
+helm show values stable/grafana >> grafanaValues.yml
+
+helm repo add stable https://charts.helm.sh/stable
+helm install grafana44 stable/grafana -f grafanaValues.yml -n monitoring
+kubectl get configMaps --all-namespace
+helm rollback  metricServer stable/metric-server -n kube-system
+helm ls -n kube-system
+helm ls -n monitoring
+helm uninstall metricsName -n kube-system
+
+helm install prometheus44 stable/prometheus -f promethuesValues.yml -n monitoring
+kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+kubectl get secret -n monitoring grafana44 -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+helm upgrade prometheus44 stable/prometheus -f promethuesValues.yml -n monitoring
+kubectl get configmap -n monitoring
+kubectl get configmap prometheus-server -n monitoring -o yaml
+
+
+######################GRAPHANA HELLM DEPLOYMENT ##################################
+grafana dashborad
+https://grafana.com/grafana/dashboards?search=kubernetes
+
+
+###Get Grafana default password to login. Default user name is admin.
+kubectl get secret -n monitoring grafana44 -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+
+(((count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance="$node",job="$job"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu))
+
+helm upgrade metricServer stable/metric-server -n kube-system --set replicas 2
+
+kubectl get configMaps --all-namespace
+helm rollback  metricServer stable/metric-server -n kube-system
+
+helm ls -n monitoring
+kubectl get all  -n monitoring
+helm uninstall prometheus44 -n monitoring
+
+https://raw.githubusercontent.com/MithunTechnologiesDevOps/Kubernates-Manifests/master/prometheusvalues.yml
+helm install  --set alertmanager.service.type=NodePort  --set server.service.type=NodePort -f rules.yml prometheus stable/prometheus -n monitoring -f prometheusvalues.yml
+
+
+                   prometheus query
+                   ####################
+kube_node_status_capacity_memory_bytes
+kube_node_status_allocatable_memory_bytes
+kube_node_status_allocatable_pods
+node_memory_MemTotal_bytes
+node_memory_MemAvailable_bytes
+node_memory_MemFree_bytes
+node_memory_Inactive_bytes
+
+
+kube_pod_info
+kube_pod_container_info
+kube_pod_container_status_ready
+kube_pod_container_status_running
+kube_pod_container_status_terminated
+kube_pod_container_status_waiting
+
+
+     ALERT HAS TO BE DEFINE AS PART OF PROMETHEUS FILES
+kubectl exec  prometheus_pods -n monitoring -c prometheus-server ls /etc/prometheus
+inject from outside
+updated the configmap
+aler configure with smtp to trigger aler
+the files
+
+https://raw.githubusercontent.com/MithunTechnologiesDevOps/Kubernates-Manifests/master/prometheusvalues.yml
+
+helm install prometheus44 stable/prometheus -n monitoring -f promethuesValues.yml
+helm upgrade prometheus44 stable/prometheus -n monitoring -f  alert_rules.yml
+helm upgrade prometheus44 stable/prometheus -n monitoring -f promethuesValuesLB.yml
+
+
+helm repo add stable https://charts.helm.sh/stable
+
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+
+
+kubectl get configmap -n monitoring
+kubectl get configmap prometheus44-server -n monitoring -o yaml
+git config --global user.email "agunueghosa@gmail.com"
+git config --global user.name "agunuworld4"
